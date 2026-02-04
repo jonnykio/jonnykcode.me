@@ -1,42 +1,100 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PostCard from '../components/PostCard.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import PostCard from "../components/PostCard.astro";
+import { getCollection } from "astro:content";
 
-const posts = (await getCollection('posts'))
+const posts = (await getCollection("posts"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
 ---
 
 <Layout title="Jonnykcode - Technology Blog">
-  <section class="py-12 md:py-20 text-center">
-    <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">
-      Hello, I'm <span class="text-primary-600 dark:text-primary-400">Jonny</span>.
+  <section
+    class="py-24 md:py-32 flex flex-col items-center text-center border-b-[8px] border-black dark:border-white px-4 sm:px-6 lg:px-8 bg-black text-white dark:bg-white dark:text-black mb-12 relative overflow-hidden"
+  >
+    <div class="absolute inset-0 opacity-20 pointer-events-none">
+      <div class="grid grid-cols-12 h-full w-full">
+        {
+          Array.from({ length: 144 }).map((_, i) => (
+            <div class="border-[0.5px] border-white/20 dark:border-black/20" />
+          ))
+        }
+      </div>
+    </div>
+    <h1
+      class="text-7xl md:text-9xl font-black tracking-tighter mb-6 relative z-10 leading-[0.8] font-serif italic transition-all duration-700 hover:tracking-widest cursor-default group/title"
+    >
+      HELL<span class="text-outline">O</span>, I'M <br
+        class="hidden md:block"
+      />
+      <span
+        class="bg-white text-black dark:bg-black dark:text-white px-4 inline-block transform -rotate-2 not-italic group-hover/title:rotate-2 transition-transform duration-500"
+        >JONNY</span
+      >.
     </h1>
-    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-      Senior Software Engineer. Sharing my research, findings, and thoughts on technology.
+    <p
+      class="text-xl md:text-2xl font-bold max-w-2xl mx-auto mb-10 mono opacity-80 z-10"
+    >
+      / SENIOR SOFTWARE ENGINEER <br />
+      / RESEARCHER & ARCHITECT
     </p>
-    <div class="mt-8 flex justify-center gap-4">
-        <a href="/blog" class="px-6 py-3 rounded-md bg-primary-600 text-white font-medium hover:bg-primary-700 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-            Read the Blog
-        </a>
-        <a href="/contact" class="px-6 py-3 rounded-md bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-            Get in Touch
-        </a>
+    <div
+      class="flex flex-col sm:flex-row justify-center gap-6 z-10 w-full sm:w-auto px-4"
+    >
+      <a
+        href="/blog"
+        class="px-8 py-4 bg-white text-black dark:bg-black dark:text-white font-black uppercase tracking-widest brutalist-border text-lg hover:scale-105 transition-transform"
+      >
+        Read Archive
+      </a>
+      <a
+        href="/contact"
+        class="px-8 py-4 bg-transparent border-4 border-white dark:border-black text-white dark:text-black font-black uppercase tracking-widest text-lg hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white transition-all"
+      >
+        Connect
+      </a>
     </div>
   </section>
 
-  <section class="py-12 border-t border-gray-100 dark:border-gray-800">
-    <div class="flex items-center justify-between mb-8">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Latest Posts</h2>
-        <a href="/blog" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">View all &rarr;</a>
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div
+      class="flex flex-col md:flex-row items-baseline justify-between mb-12 gap-4"
+    >
+      <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter">
+        Latest<br />Entries
+      </h2>
+      <a
+        href="/blog"
+        class="text-xl font-bold uppercase tracking-widest border-b-4 border-black dark:border-white hover:pb-2 transition-all mono"
+        >View All Archive &rarr;</a
+      >
     </div>
-    {posts.length > 0 ? (
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {posts.map(post => <PostCard post={post} />)}
-      </div>
-    ) : (
-      <p class="text-gray-500 dark:text-gray-400">No posts yet. Check back soon!</p>
-    )}
+    {
+      posts.length > 0 ? (
+        <div class="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      ) : (
+        <p class="text-xl font-bold mono opacity-50">
+          NO ENTRIES FOUND. CHECK BACK SOON.
+        </p>
+      )
+    }
   </section>
 </Layout>
+
+<style>
+  .text-outline-white {
+    -webkit-text-stroke: 2px white;
+    color: transparent;
+  }
+  .dark .text-outline-black {
+    -webkit-text-stroke: 2px black;
+    color: transparent;
+  }
+  .tracking-tightest {
+    letter-spacing: -0.05em;
+  }
+</style>

@@ -2,12 +2,25 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-auto">
-  <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col md:flex-row justify-between items-center">
-      <div class="text-gray-500 dark:text-gray-400 text-sm">
-        &copy; {currentYear} Jonnykcode. All rights reserved.
+<footer
+  class="bg-black text-white dark:bg-white dark:text-black border-t-[8px] border-black dark:border-white mt-auto"
+>
+  <div class="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+      <div
+        class="text-3xl font-bold tracking-tightest leading-none font-serif italic"
+      >
+        JONNY<span class="font-black text-neutral-500">K</span>CODE.
+      </div>
+      <div class="text-xl font-bold uppercase tracking-widest mono">
+        &copy; {currentYear} / ALL_RIGHTS_RESERVED
       </div>
     </div>
   </div>
 </footer>
+
+<style>
+  .tracking-tightest {
+    letter-spacing: -0.05em;
+  }
+</style>

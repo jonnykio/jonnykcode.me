@@ -1,44 +1,64 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Contact - Jonnykcode">
-  <div class="max-w-3xl mx-auto py-12">
-    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-6">Contact</h1>
-    <div class="prose prose-lg dark:prose-invert mb-8">
-      <p>
-        Have a question, suggestion, or just want to say hi? I'd love to hear from you.
-      </p>
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="border-b-[8px] border-black dark:border-white pb-8 mb-16">
+      <h1
+        class="text-6xl md:text-9xl font-black uppercase tracking-tightest leading-none font-serif italic"
+      >
+        The<br />Comm
+      </h1>
     </div>
 
-    <div class="grid gap-6 md:grid-cols-2">
-        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Email</h3>
-            <p class="text-gray-600 dark:text-gray-300 mb-4">
-                The best way to reach me is via email.
-            </p>
-            <a href="mailto:jonny@example.com" class="text-primary-600 dark:text-primary-400 hover:underline">
-                jonny@example.com
-            </a>
-        </div>
+    <div class="grid gap-12 md:grid-cols-2">
+      <div
+        class="p-12 border-4 border-black dark:border-white bg-white dark:bg-black brutalist-border group"
+      >
+        <h3 class="text-3xl font-black uppercase mb-4 italic">/ EMAIL_ME</h3>
+        <p class="text-xl font-medium mb-12 opacity-70 leading-relaxed mono">
+          FOR INQUIRIES, COLLABORATIONS, OR RECRUITERS.
+        </p>
+        <a
+          href="mailto:jonny@example.com"
+          class="text-2xl font-black uppercase tracking-widest bg-black text-white dark:bg-white dark:text-black px-6 py-3 hover:translate-x-2 transition-transform inline-block mono"
+        >
+          JONNY@EXAMPLE.COM
+        </a>
+      </div>
 
-        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Social Media</h3>
-            <p class="text-gray-600 dark:text-gray-300 mb-4">
-                Follow me on social media for updates.
-            </p>
-            <div class="flex space-x-4">
-                <a href="#" class="text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
-                   X (Twitter)
-                </a>
-                <a href="#" class="text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
-                   LinkedIn
-                </a>
-                 <a href="#" class="text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
-                   GitHub
-                </a>
-            </div>
+      <div
+        class="p-12 border-4 border-black dark:border-white bg-black text-white dark:bg-white dark:text-black brutalist-border"
+      >
+        <h3 class="text-3xl font-black uppercase mb-8 italic">/ SOCIAL_FEED</h3>
+        <div class="flex flex-col gap-6 mono font-bold text-xl uppercase">
+          <a
+            href="#"
+            class="flex items-center gap-4 hover:translate-x-4 transition-transform group"
+          >
+            <span class="opacity-30 group-hover:opacity-100">[X]</span> X (TWITTER)
+          </a>
+          <a
+            href="#"
+            class="flex items-center gap-4 hover:translate-x-4 transition-transform group"
+          >
+            <span class="opacity-30 group-hover:opacity-100">[LI]</span> LINKEDIN
+          </a>
+          <a
+            href="#"
+            class="flex items-center gap-4 hover:translate-x-4 transition-transform group"
+          >
+            <span class="opacity-30 group-hover:opacity-100">[GH]</span> GITHUB
+          </a>
         </div>
+      </div>
     </div>
-  </div>
+  </section>
 </Layout>
+
+<style>
+  .tracking-tightest {
+    letter-spacing: -0.05em;
+  }
+</style>

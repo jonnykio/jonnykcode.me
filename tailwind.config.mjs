@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 import typography from '@tailwindcss/typography';
 
 export default {
@@ -8,40 +7,81 @@ export default {
     extend: {
       colors: {
         primary: {
-            50: '#f0f9ff',
-            100: '#e0f2fe',
-            200: '#b9e6fe',
-            300: '#7cd3fd',
-            400: '#36bffa',
-            500: '#0ea5e9',
-            600: '#0284c7',
-            700: '#0369a1',
-            800: '#075985',
-            900: '#0c4a6e',
-            950: '#082f49',
+          50: '#f9f9f9',
+          100: '#f0f0f0',
+          200: '#e5e5e5',
+          300: '#d4d4d4',
+          400: '#a3a3a3',
+          500: '#737373',
+          600: '#525252',
+          700: '#404040',
+          800: '#262626',
+          900: '#171717',
+          950: '#0a0a0a',
+        },
+        ink: {
+          DEFAULT: '#000000',
+          paper: '#ffffff',
+          dim: '#262626',
         }
+      },
+      fontFamily: {
+        serif: ['"Playfair Display"', 'serif'],
+        mono: ['"Space Mono"', 'monospace'],
+        sans: ['"Inter"', 'sans-serif'],
+      },
+      boxShadow: {
+        brutalist: '4px 4px 0px 0px rgba(0,0,0,1)',
+        'brutalist-hover': '2px 2px 0px 0px rgba(0,0,0,1)',
+        'brutalist-dark': '4px 4px 0px 0px rgba(255,255,255,1)',
       },
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            maxWidth: '65ch',
-            color: theme('colors.gray.800'),
+            maxWidth: '75ch',
+            color: '#000000',
+            'h1, h2, h3, h4': {
+              fontFamily: theme('fontFamily.serif').join(', '),
+              fontWeight: '900',
+              textTransform: 'uppercase',
+              letterSpacing: '-0.02em',
+            },
+            code: {
+              backgroundColor: '#f3f4f6',
+              padding: '0.2em 0.4em',
+              borderRadius: '0.25rem',
+              fontWeight: '400',
+            },
+            'code::before': { content: '""' },
+            'code::after': { content: '""' },
             a: {
-              color: theme('colors.primary.800'), // Accessible AAA
+              color: '#000000',
+              textDecoration: 'underline',
+              textDecorationThickness: '2px',
+              textUnderlineOffset: '4px',
               '&:hover': {
-                color: theme('colors.primary.900'),
+                backgroundColor: '#000000',
+                color: '#ffffff',
               },
             },
           },
         },
         invert: {
           css: {
-            color: theme('colors.gray.100'),
+            color: '#ffffff',
+            'h1, h2, h3, h4': {
+              color: '#ffffff',
+            },
             a: {
-              color: theme('colors.primary.400'),
+              color: '#ffffff',
               '&:hover': {
-                color: theme('colors.primary.300'),
+                backgroundColor: '#ffffff',
+                color: '#000000',
               },
+            },
+            code: {
+              backgroundColor: '#1f2937',
+              color: '#ffffff',
             },
           },
         },
