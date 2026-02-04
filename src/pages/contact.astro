@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contact - Jonnykcode">
+  <div class="max-w-3xl mx-auto py-12">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-6">Contact</h1>
+    <div class="prose prose-lg dark:prose-invert mb-8">
+      <p>
+        Have a question, suggestion, or just want to say hi? I'd love to hear from you.
+      </p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Email</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+                The best way to reach me is via email.
+            </p>
+            <a href="mailto:jonny@example.com" class="text-primary-600 dark:text-primary-400 hover:underline">
+                jonny@example.com
+            </a>
+        </div>
+
+        <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Social Media</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+                Follow me on social media for updates.
+            </p>
+            <div class="flex space-x-4">
+                <a href="#" class="text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+                   X (Twitter)
+                </a>
+                <a href="#" class="text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+                   LinkedIn
+                </a>
+                 <a href="#" class="text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+                   GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<Layout title="Jonnykcode - Technology Blog">
+  <section class="py-12 md:py-20 text-center">
+    <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">
+      Hello, I'm <span class="text-primary-600 dark:text-primary-400">Jonny</span>.
+    </h1>
+    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+      Senior Software Engineer. Sharing my research, findings, and thoughts on technology.
+    </p>
+    <div class="mt-8 flex justify-center gap-4">
+        <a href="/blog" class="px-6 py-3 rounded-md bg-primary-600 text-white font-medium hover:bg-primary-700 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+            Read the Blog
+        </a>
+        <a href="/contact" class="px-6 py-3 rounded-md bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100 font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+            Get in Touch
+        </a>
+    </div>
+  </section>
+
+  <section class="py-12 border-t border-gray-100 dark:border-gray-800">
+    <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Latest Posts</h2>
+        <a href="/blog" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">View all &rarr;</a>
+    </div>
+    {posts.length > 0 ? (
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map(post => <PostCard post={post} />)}
+      </div>
+    ) : (
+      <p class="text-gray-500 dark:text-gray-400">No posts yet. Check back soon!</p>
+    )}
+  </section>
+</Layout>

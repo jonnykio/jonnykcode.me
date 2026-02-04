@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { title, description, date, coverImage, tags } = post.data;
+
+const formattedDate = date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<article class="flex flex-col h-full overflow-hidden rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+  {coverImage && (
+    <a href={`/blog/${post.slug}`} class="flex-shrink-0 group overflow-hidden block relative h-48">
+      <img
+        class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+        src={coverImage}
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+    </a>
+  )}
+  <div class="flex-1 p-6 flex flex-col">
+    <div class="flex-1">
+        <div class="flex flex-wrap gap-2 mb-3">
+            {tags.map((tag) => (
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-50 text-primary-700 dark:bg-primary-900/50 dark:text-primary-200 border border-primary-100 dark:border-primary-800">
+                    {tag}
+                </span>
+            ))}
+        </div>
+      <a href={`/blog/${post.slug}`} class="block group">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
+          {title}
+        </h3>
+        <p class="mt-3 text-base text-gray-500 dark:text-gray-400 line-clamp-3">
+          {description}
+        </p>
+      </a>
+    </div>
+    <div class="mt-6 flex items-center justify-between">
+       <time datetime={date.toISOString()} class="text-sm text-gray-400 dark:text-gray-500">
+          {formattedDate}
+       </time>
+       <a href={`/blog/${post.slug}`} class="text-sm font-medium text-primary-700 dark:text-primary-400 hover:underline">
+          Read more &rarr;
+       </a>
+    </div>
+  </div>
+</article>

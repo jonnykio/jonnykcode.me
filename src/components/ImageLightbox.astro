@@ -1,0 +1,69 @@
+<dialog id="image-lightbox" class="group bg-transparent p-0 overflow-hidden backdrop:bg-black/90 focus:outline-none w-auto h-auto max-w-[95vw] max-h-[95vh] rounded shadow-2xl backdrop-blur-sm">
+  <div class="relative flex items-center justify-center w-full h-full">
+    <button id="lightbox-close" class="absolute top-2 right-2 md:top-4 md:right-4 z-50 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-white" aria-label="Close lightbox">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+    <img id="lightbox-image" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded" />
+  </div>
+</dialog>
+
+<script>
+  function setupLightbox() {
+    const dialog = document.getElementById('image-lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const closeBtn = document.getElementById('lightbox-close');
+
+    if (!dialog || !lightboxImage || !closeBtn) return;
+
+    // Target images inside the article content
+    // We select all images in the article (cover image + content images)
+    const images = document.querySelectorAll('article img');
+
+    images.forEach(img => {
+      // Add visual cue
+      img.classList.add('cursor-zoom-in', 'transition-transform', 'active:scale-95');
+      img.setAttribute('tabindex', '0'); // Make accessible via keyboard
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', 'View full screen');
+
+      const openHandler = (e) => {
+          // If enter key or click
+          if (e.type === 'keydown' && e.key !== 'Enter') return;
+
+          e.preventDefault();
+          lightboxImage.src = img.src;
+          lightboxImage.alt = img.alt;
+          dialog.showModal();
+          document.body.style.overflow = 'hidden';
+      };
+
+      img.addEventListener('click', openHandler);
+      img.addEventListener('keydown', openHandler);
+    });
+
+    const closeLightbox = () => {
+      dialog.close();
+      document.body.style.overflow = '';
+    };
+
+    closeBtn.addEventListener('click', closeLightbox);
+
+    // Close on backdrop click
+    dialog.addEventListener('click', (e) => {
+        const rect = dialog.getBoundingClientRect();
+        const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height
+          && rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+        if (!isInDialog) {
+            closeLightbox();
+        }
+    });
+
+    dialog.addEventListener('close', () => {
+        document.body.style.overflow = '';
+    });
+  }
+
+  // Support both standard load and Astro View Transitions
+  document.addEventListener('DOMContentLoaded', setupLightbox);
+  document.addEventListener('astro:page-load', setupLightbox);
+</script>
