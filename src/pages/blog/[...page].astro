@@ -1,14 +1,26 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import PostCard from "../../components/PostCard.astro";
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
-export async function getStaticPaths({ paginate }) {
+export async function getStaticPaths({ paginate }: { paginate: any }) {
   const posts = (await getCollection("posts")).sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
   );
 
   return paginate(posts, { pageSize: 6 });
+}
+
+interface Props {
+  page: {
+    data: CollectionEntry<"posts">[];
+    url: {
+      prev: string | undefined;
+      next: string | undefined;
+    };
+    currentPage: number;
+    lastPage: number;
+  };
 }
 
 const { page } = Astro.props;
@@ -40,14 +52,18 @@ const { page } = Astro.props;
             href={page.url.prev}
             class="px-8 py-4 bg-white dark:bg-black border-4 border-black dark:border-white font-black uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all brutalist-border mono"
           >
-            &larr; Previous Page
+            <span aria-hidden="true">&larr;</span> Previous Page
           </a>
         ) : (
           <div class="hidden md:block" />
         )
       }
 
-      <span class="text-xl font-black uppercase mono">
+      <span
+        class="text-xl font-black uppercase mono"
+        aria-label={`Current page: ${page.currentPage} of ${page.lastPage}`}
+        role="status"
+      >
         {page.currentPage} / {page.lastPage}
       </span>
 
@@ -57,7 +73,7 @@ const { page } = Astro.props;
             href={page.url.next}
             class="px-8 py-4 bg-white dark:bg-black border-4 border-black dark:border-white font-black uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all brutalist-border mono"
           >
-            Next Page &rarr;
+            Next Page <span aria-hidden="true">&rarr;</span>
           </a>
         ) : (
           <div class="hidden md:block" />

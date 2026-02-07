@@ -17,7 +17,7 @@ export default config({
           label: 'Cover Image',
           directory: 'public/images/posts',
           publicPath: '/images/posts/',
-          validation: { isRequired: true }
+          validation: { isRequired: false }
         }),
         description: fields.text({ label: 'Description', multiline: true }),
         tags: fields.array(

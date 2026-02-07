@@ -19,11 +19,21 @@ const { title, description = "A personal tech blog." } = Astro.props;
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <!-- Font Preloads (Critical Only) -->
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:ital,wght@0,900;1,900&family=Space+Mono:wght@400;700&display=swap"
-            rel="stylesheet"
+            rel="preload"
+            href="/fonts/inter-latin.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        />
+        <link
+            rel="preload"
+            href="/fonts/playfair-latin.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
         />
         <script is:inline>
             // On page load or when changing themes, best to add inline in `head` to avoid FOUC
@@ -38,6 +48,42 @@ const { title, description = "A personal tech blog." } = Astro.props;
             }
         </script>
         <style is:global>
+            @font-face {
+                font-family: "Inter";
+                src: url("/fonts/inter-latin.woff2") format("woff2");
+                font-weight: 400 700;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Playfair Display";
+                src: url("/fonts/playfair-latin.woff2") format("woff2");
+                font-weight: 900;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Playfair Display";
+                src: url("/fonts/playfair-italic-latin.woff2") format("woff2");
+                font-weight: 900;
+                font-style: italic;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Space Mono";
+                src: url("/fonts/space-mono-latin.woff2") format("woff2");
+                font-weight: 400;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Space Mono";
+                src: url("/fonts/space-mono-bold-latin.woff2") format("woff2");
+                font-weight: 700;
+                font-style: normal;
+                font-display: swap;
+            }
+
             :root {
                 --ink: #000000;
                 --paper: #ffffff;
@@ -49,13 +95,34 @@ const { title, description = "A personal tech blog." } = Astro.props;
 
             body {
                 background-color: var(--paper);
+                /* High-performance noise using conic gradient */
+                background-image:
+                    radial-gradient(
+                        circle at 50% 50%,
+                        rgba(0, 0, 0, 0.02) 0%,
+                        transparent 100%
+                    ),
+                    repeating-conic-gradient(#000 0 0.0001%, #fff 0 0.0002%) 50%
+                        50% / 100px 100px;
+                background-repeat: repeat;
                 color: var(--ink);
-                font-family: "Inter", sans-serif;
+                font-family: "Inter", system-ui, sans-serif;
                 position: relative;
             }
 
-            /* Grain Texture */
-            body::before {
+            .dark body {
+                background-image:
+                    radial-gradient(
+                        circle at 50% 50%,
+                        rgba(255, 255, 255, 0.02) 0%,
+                        transparent 100%
+                    ),
+                    repeating-conic-gradient(#fff 0 0.0001%, #000 0 0.0002%) 50%
+                        50% / 100px 100px;
+            }
+
+            /* Grain Overlay - Fallback to simple noise if conic is weird, but conic is usually fine */
+            body::after {
                 content: "";
                 position: fixed;
                 top: 0;
@@ -64,8 +131,10 @@ const { title, description = "A personal tech blog." } = Astro.props;
                 height: 100%;
                 pointer-events: none;
                 z-index: 9999;
-                opacity: 0.05;
-                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+                opacity: 0.02;
+                background: var(--ink);
+                mix-blend-mode: overlay;
+                display: block;
             }
 
             .brutalist-border {
@@ -108,7 +177,11 @@ const { title, description = "A personal tech blog." } = Astro.props;
             Skip to content
         </a>
         <Header />
-        <main id="main-content" class="flex-grow w-full">
+        <main
+            id="main-content"
+            class="flex-grow w-full"
+            aria-label="Main Content"
+        >
             <slot />
         </main>
         <Footer />

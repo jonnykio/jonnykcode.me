@@ -19,4 +19,14 @@ export default defineConfig({
     sitemap(),
     mdx()
   ],
+  vite: {
+    resolve: {
+      alias: {
+        ...(process.env.NODE_ENV === 'production'
+          ? { 'react-dom/server': 'react-dom/server.edge' }
+          : {}
+        )
+      }
+    }
+  }
 });

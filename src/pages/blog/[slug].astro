@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import ShareButtons from "../../components/ShareButtons.astro";
 import ImageLightbox from "../../components/ImageLightbox.astro";
+import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -55,9 +56,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     {
       coverImage && (
         <div class="mb-16 border-[4px] border-black dark:border-white p-2 bg-white dark:bg-black">
-          <img
+          <Image
             src={coverImage}
             alt={title}
+            width={1200}
+            height={675}
+            widths={[400, 800, 1200]}
+            sizes="(max-width: 800px) 100vw, 800px"
+            format="webp"
             class="w-full h-auto grayscale brightness-90 contrast-125"
             loading="eager"
           />
